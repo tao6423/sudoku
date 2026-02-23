@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>Sudoku</h1>
+
+<div class="controls">
+  <select id="difficulty">
+    <option value="easy">Easy</option>
+    <option value="medium" selected>Medium</option>
+    <option value="hard">Hard</option>
+    <option value="expert">Expert</option>
+  </select>
+  <button onclick="newGame()">New Game</button>
+  <button class="secondary" id="btn-undo" onclick="undo()" disabled>Undo</button>
+  <button class="secondary" id="btn-redo" onclick="redo()" disabled>Redo</button>
+  <button class="secondary" onclick="checkAll()">Check</button>
+  <button class="secondary" onclick="reveal()">Solve</button>
+  <button class="danger"    onclick="clearUser()">Clear</button>
+</div>
+
+<div class="status-bar">
+  <span>Mistakes: <b id="mistakes">0</b></span>
+  <span>Time: <b id="timer">00:00</b></span>
+  <span>Remaining: <b id="remaining">0</b></span>
+</div>
+
+<div class="board-wrap">
+  <div id="board"></div>
+</div>
+
+<div class="numpad" id="numpad"></div>
+
+<div id="overlay">
+  <div class="win-box">
+    <h2>Puzzle Solved!</h2>
+    <p id="win-msg"></p>
+    <button onclick="newGame()">Play Again</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

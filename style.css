@@ -1,0 +1,206 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  letter-spacing: 4px;
+  color: #a78bfa;
+  text-transform: uppercase;
+}
+
+/* ── Controls ── */
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+select, button {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+select {
+  background: #16213e;
+  color: #e0e0e0;
+  border: 1px solid #4c1d95;
+}
+
+button {
+  background: #7c3aed;
+  color: #fff;
+  font-weight: 600;
+}
+button:hover { background: #6d28d9; transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+button:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+button.secondary {
+  background: #1e3a5f;
+}
+button.secondary:hover { background: #1e4070; }
+
+button.danger {
+  background: #be123c;
+}
+button.danger:hover { background: #9f1239; }
+
+/* ── Status bar ── */
+.status-bar {
+  display: flex;
+  gap: 30px;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+.status-bar span b { color: #a78bfa; }
+
+/* ── Board ── */
+.board-wrap {
+  position: relative;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0;
+  border: 3px solid #7c3aed;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0f172a;
+  width: min(500px, 95vw);
+  height: min(500px, 95vw);
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(14px, 3vw, 22px);
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #1e293b;
+  background: #0f172a;
+  transition: background 0.1s;
+  user-select: none;
+  position: relative;
+}
+
+/* thick box borders */
+.cell:nth-child(3n+1):not(:nth-child(9n+1)) { border-left: 2px solid #334155; }
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid #334155; }
+
+/* Row 1,4,7 top border */
+.cell:nth-child(n+1):nth-child(-n+9) { border-top: 1px solid #1e293b; }
+
+.cell.given {
+  color: #a78bfa;
+  font-weight: 700;
+  cursor: default;
+}
+
+.cell.user {
+  color: #67e8f9;
+}
+
+.cell.error {
+  color: #f87171 !important;
+  background: #2d0a0a !important;
+}
+
+.cell.conflict {
+  color: #fb923c !important;
+  background: #2d1500 !important;
+}
+
+.cell.selected {
+  background: #1e3a5f !important;
+}
+
+.cell.highlight {
+  background: #162032;
+}
+
+.cell.same-value {
+  background: #1a2a3a;
+}
+
+/* Notes mode */
+.cell .notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 90%;
+  height: 90%;
+  gap: 0;
+}
+.cell .notes-grid span {
+  font-size: clamp(5px, 1.1vw, 9px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  line-height: 1;
+}
+
+/* ── Numpad ── */
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: min(500px, 95vw);
+}
+
+.numpad button {
+  padding: 12px 0;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+.numpad button.erase { background: #374151; }
+.numpad button.erase:hover { background: #4b5563; }
+.numpad button.notes-toggle { background: #065f46; font-size: 0.8rem; }
+.numpad button.notes-toggle.active { background: #10b981; color: #000; }
+.numpad button.notes-toggle:hover { filter: brightness(1.15); }
+
+/* ── Overlay ── */
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+#overlay.show { display: flex; }
+
+.win-box {
+  background: #1e293b;
+  border: 2px solid #7c3aed;
+  border-radius: 16px;
+  padding: 40px 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.win-box h2 { font-size: 2rem; color: #a78bfa; }
+.win-box p  { color: #94a3b8; }
